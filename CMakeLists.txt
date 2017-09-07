@@ -2,12 +2,24 @@ cmake_minimum_required(VERSION 3.8)
 project(Car_race)
 
 set(CMAKE_CXX_STANDARD 11)
-set(INC_DIR /Users/SilverNarcissus/Desktop/mysql-connector-c-6.1.11-macos10.12-x86_64/include)
-set(LIB_PATH  /Users/SilverNarcissus/Desktop/mysql-connector-c-6.1.11-macos10.12-x86_64/lib)
-set(SOURCE_FILES source/main.cpp utility/Database.cpp utility/Database.h utility/utils.cpp utility/utils.h test/my_test.h)
+set(INC_DIR ./include ./googletest/include)
+#源文件列表
+set(SOURCE_FILES source/main.cpp
+        utility/Database.cpp
+        utility/Database.h
+        utility/utils.cpp
+        utility/utils.h
+        test/my_test.h)
 
+add_subdirectory(./googletest)
+#需要链接库的位置
+link_directories(./lib)
+#引用的头文件位置
 include_directories(${INC_DIR})
-link_directories(${LINK_DIR})
+
+#库列表
+set(LIBRARYS libgtest.a libpthread.dylib libmysqlclient.a)
+
 add_executable(Car_race ${SOURCE_FILES} test/my_test.cpp)
 
-target_link_libraries(Car_race /Users/SilverNarcissus/Desktop/mysql-connector-c-6.1.11-macos10.12-x86_64/lib/libmysqlclient.a)
+target_link_libraries(Car_race ${LIBRARYS})
