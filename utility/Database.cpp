@@ -79,3 +79,9 @@ bool Database::free_result() {
     mysql_free_result(result);
     return true;
 }
+
+ostream& operator<<(ostream& out,const Database& database)
+{
+    out << "Database connector!"<<endl;
+    return out;
+}

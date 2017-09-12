@@ -10,6 +10,10 @@ TEST(database__Test,test1) {
     EXPECT_EQ(-1, test1());
 }
 
+TEST(database__Test,test2) {
+    EXPECT_EQ(0, test2());
+}
+
 GTEST_API_ int main(int argc, char **argv) {
     testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();

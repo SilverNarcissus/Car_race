@@ -1,11 +1,10 @@
 //
 // Created by Silver Narcissus on 2017/9/6.
 //
-#include <iostream>
-#include "../utility/Database.h"
-#include "../utility/utils.h"
 
-int test1(){
+#include "my_test.h"
+
+int test1() {
     std::cout << "Hello, World!" << std::endl;
     std::cout << exec("python /Users/SilverNarcissus/Desktop/test.py") << std::endl;
     Database db(const_cast<char *>("localhost"), const_cast<char *>("root"), const_cast<char *>("xue199714"),
@@ -21,9 +20,26 @@ int test1(){
 //        cout << endl;
 //    }
 
-    if(db.update("INSERT INTO news VALUE(11,'brilliant','POS')")){
+    if (db.update("INSERT INTO news VALUE(11,'brilliant','POS')")) {
         return 0;
     }
 
+    std::cout << db;
     return -1;
+}
+
+int mul(int a,int b){
+    return a*b;
+}
+
+int test2() {
+    std::vector<int> collection(10, 5);
+    collection.push_back(4);
+    collection.push_back(3);
+    collection.push_back(6);
+    display<std::vector<int>::iterator>(collection.begin(), collection.end());
+    next_permutation(collection.begin(), collection.end());
+    display<std::vector<int>::iterator>(collection.begin(), collection.end());
+    cout<<accumulate(collection.begin(), collection.end(), 1, mul);
+    return 0;
 }
