@@ -43,3 +43,18 @@ int test2() {
     cout<<accumulate(collection.begin(), collection.end(), 1, mul);
     return 0;
 }
+
+int test3(){
+    using namespace cv;
+
+    std::cout << "Hello opencv!\n";
+    std::string path = "test.jpg";
+    Mat image = imread(path);
+    namedWindow("test");
+    imshow("test", image);
+    Mat gray;
+    cvtColor(image, gray, COLOR_RGBA2GRAY);
+    namedWindow("gray");
+    imshow("gray", gray);
+    return 0;
+}

@@ -18,7 +18,7 @@ link_directories(./lib)
 include_directories(${INC_DIR})
 
 #库列表
-set(LIBRARYS libgtest.a libpthread.dylib libmysqlclient.a)
+set(LIBRARYS libgtest.a libpthread.dylib libmysqlclient.a libopencv_core.2.4.13.dylib libopencv_highgui.2.4.13.dylib libopencv_imgproc.2.4.13.dylib libopencv_ml.2.4.13.dylib)
 
 add_executable(Car_race ${SOURCE_FILES} test/my_test.cpp)
 

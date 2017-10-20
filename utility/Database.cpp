@@ -67,9 +67,9 @@ bool Database::update(string sql){
 char **Database::fetch_one() {
     row = mysql_fetch_row(result);
 
-    if (row <= 0) {
-        cerr << "Fetch error" << endl;
-    }
+//    if (row <= 0) {
+//        cerr << "Fetch error" << endl;
+//    }
 
     return row;
 
