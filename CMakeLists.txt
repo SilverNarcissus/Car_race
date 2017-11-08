@@ -2,9 +2,10 @@ cmake_minimum_required(VERSION 3.8)
 project(Car_race)
 
 set(CMAKE_CXX_STANDARD 11)
+#头文件列表
 set(INC_DIR ./include ./googletest/include)
 #源文件列表
-set(SOURCE_FILES source/main.cpp
+set(SOURCE_FILES source/houghMain.cpp
         utility/Database.cpp
         utility/Database.h
         utility/utils.cpp

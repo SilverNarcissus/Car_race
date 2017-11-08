@@ -1,47 +1,3 @@
-//
-////
-//// Created by Silver Narcissus on 2017/9/7.
-////
-#include <iostream>
-//#include "../googletest/include/gtest/gtest.h"
-//#include "../test/my_test.h"
-//
-//
-//TEST(database__Test,test1) {
-//    EXPECT_EQ(-1, test1());
-//}
-//
-//TEST(database__Test,test2) {
-//    EXPECT_EQ(0, test2());
-//}
-//
-//TEST(opencv_test,test3) {
-//    EXPECT_EQ(0, test3());
-//}
-//
-//GTEST_API_ int main(int argc, char **argv) {
-//    using namespace cv;
-//
-//    std::cout << "Hello opencv!\n";
-//    std::string path = "../test.jpg";
-//    Mat image = imread(path);
-//    namedWindow("test");
-//    imshow("test", image);
-//    Mat gray;
-//    cvtColor(image, gray, COLOR_RGBA2GRAY);
-//    namedWindow("gray");
-//    imshow("gray", gray);
-//    waitKey(0);
-////    testing::InitGoogleTest(&argc, argv);
-////    return RUN_ALL_TESTS();
-//}
-//
-////int main(){
-////    std::cout<<"Hello World!"<<std::endl;
-////    return 0;
-////}
-
-
 //-----------------------------------【程序说明】----------------------------------------------
 //		程序名称:：《【OpenCV入门教程之十二】OpenCV边缘检测：Canny算子,Sobel算子,Laplace算子,Scharr滤波器合辑合辑》 博文配套源码
 //		开发所用IDE版本：Visual Studio 2010
@@ -101,19 +57,17 @@ void Scharr( );//封装了Scharr边缘检测相关代码的函数
 int main( int argc, char** argv )
 {
     //改变console字体颜色
-    //system("color 2F");
+    system("color 2F");
 
     //显示欢迎语
     ShowHelpText();
 
     //载入原图
-    g_srcImage = imread("../race_road3.png");
+    g_srcImage = imread("stimulate.jpg");
     if( !g_srcImage.data ) { printf("Oh，no，读取srcImage错误~！ \n"); return false; }
 
-    //std::cout << g_srcImage.size().height << std::endl;
-    //std::cout << g_srcImage.size().width << std::endl;
     //显示原始图
-    namedWindow("【原始图】", WINDOW_NORMAL);
+    namedWindow("【原始图】");
     imshow("【原始图】", g_srcImage);
 
     // 创建与src同类型和大小的矩阵(dst)
@@ -123,32 +77,22 @@ int main( int argc, char** argv )
     cvtColor( g_srcImage, g_srcGrayImage, CV_BGR2GRAY );
 
     // 创建显示窗口
-    //namedWindow( "【效果图】Canny边缘检测", CV_WINDOW_AUTOSIZE );
+    namedWindow( "【效果图】Canny边缘检测", CV_WINDOW_AUTOSIZE );
     namedWindow( "【效果图】Sobel边缘检测", CV_WINDOW_AUTOSIZE );
 
     // 创建trackbar
-    //createTrackbar( "参数值：", "【效果图】Canny边缘检测", &g_cannyLowThreshold, 120, on_Canny );
+    createTrackbar( "参数值：", "【效果图】Canny边缘检测", &g_cannyLowThreshold, 120, on_Canny );
     createTrackbar( "参数值：", "【效果图】Sobel边缘检测", &g_sobelKernelSize, 3, on_Sobel );
 
     // 调用回调函数
-    //on_Canny(0, 0);
+    on_Canny(0, 0);
     on_Sobel(0, 0);
 
     //调用封装了Scharr边缘检测代码的函数
     Scharr( );
 
-    int nr= g_cannyDetectedEdges.rows; // number of rows
-    int nc= g_cannyDetectedEdges.cols * g_cannyDetectedEdges.channels(); // total number of elements per line
-    for (int j=0; j<nr; j++) {
-        uchar* data= g_cannyDetectedEdges.ptr<uchar>(j);
-        for (int i=0; i<nc; i++) {
-            std::cout << (int)data[i] << '\t';
-        }
-        std::cout << std::endl;
-    }
-
     //轮询获取按键信息，若按下Q，程序退出
-    waitKey(0);
+    while((char(waitKey(1)) != 'q')) {}
 
     return 0;
 }
@@ -175,9 +119,7 @@ void on_Canny(int, void*)
     blur( g_srcGrayImage, g_cannyDetectedEdges, Size(3,3) );
 
     // 运行我们的Canny算子
-//    Canny( g_cannyDetectedEdges, g_cannyDetectedEdges, g_cannyLowThreshold, g_cannyLowThreshold*3, 3 );
-    Canny( g_cannyDetectedEdges, g_cannyDetectedEdges, 30, 90, 3 );
-
+    Canny( g_cannyDetectedEdges, g_cannyDetectedEdges, g_cannyLowThreshold, g_cannyLowThreshold*3, 3 );
 
     //先将g_dstImage内的所有元素设置为0
     g_dstImage = Scalar::all(0);
@@ -230,5 +172,5 @@ void Scharr( )
     addWeighted( g_scharrAbsGradient_X, 0.5, g_scharrAbsGradient_Y, 0.5, 0, g_dstImage );
 
     //显示效果图
-    //imshow("【效果图】Scharr滤波器", g_dstImage);
+    imshow("【效果图】Scharr滤波器", g_dstImage);
 }
